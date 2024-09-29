@@ -23,7 +23,7 @@ test('Register new user with full info', async({page})=> {
         //tick on gender
         await page.locator(`input[value='${userInfo.gender}']`).check();
         //tick on hobbies
-        await page.locator(``)
+        await page.locator(``);
     })
 
 })
