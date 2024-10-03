@@ -43,7 +43,7 @@ test('add product to cart', async( { page } ) => {
         }
     })
 
-    await test.step('validate shopping card', async() => {
+    await test.step('validate shopping cart', async() => {
         //check number of selected product
         await expect(page.locator('#cart-items tr')).toHaveCount(3);
         //validate product 1 has 2 items
