@@ -1,26 +1,29 @@
 import { expect, test } from "playwright/test";
 
-const shoppingCart = {
-    item1: {
+const shoppingCart = [
+    {
+        idi: 1,
         name : 'Product 1',
         amount: 2,
         pricePerUnit: 10
     },
-    item2: {
+    {
+        id: 2,
         name: 'Product 2',
         amount: 2,
         pricePerUnit: 20
     },
-    item3: {
+    {
+        id: 3,
         name: 'Product 3',
         amount: 3,
         pricePerUnit: 30
     }
-};
+];
 
-const totalPriceItem1 = shoppingCart.item1.amount * shoppingCart.item1.pricePerUnit;
-const totalPriceItem2 = shoppingCart.item2.amount * shoppingCart.item2.pricePerUnit;
-const totalPriceItem3 = shoppingCart.item3.amount * shoppingCart.item3.pricePerUnit;
+const totalPriceItem1 = shoppingCart[0].amount * shoppingCart[0].pricePerUnit;
+const totalPriceItem2 = shoppingCart[1].amount * shoppingCart[1].pricePerUnit;
+const totalPriceItem3 = shoppingCart[2].amount * shoppingCart[2].pricePerUnit;
 const totalPrice = totalPriceItem1 + totalPriceItem2 + totalPriceItem3;
 
 test('add product to cart', async( { page } ) => {
@@ -47,11 +50,11 @@ test('add product to cart', async( { page } ) => {
         //check number of selected product
         await expect(page.locator('#cart-items tr')).toHaveCount(3);
         //validate product 1 has 2 items
-        await expect(page.locator('#cart-items tr:first-child td').nth(2)).toHaveText(`${shoppingCart.item1.amount}`);
+        await expect(page.locator('#cart-items tr:first-child td').nth(2)).toHaveText(`${shoppingCart[0].amount}`);
         //validate product 2 has 2 items
-        await expect(page.locator('#cart-items tr:nth-child(2) td').nth(2)).toHaveText(`${shoppingCart.item2.amount}`);
+        await expect(page.locator('#cart-items tr:nth-child(2) td').nth(2)).toHaveText(`${shoppingCart[1].amount}`);
         //validate product 3 has 3 items
-        await expect(page.locator('#cart-items tr:last-child td').nth(2)).toHaveText(`${shoppingCart.item3.amount}`);
+        await expect(page.locator('#cart-items tr:last-child td').nth(2)).toHaveText(`${shoppingCart[2].amount}`);
         //validate product 1 total price
         await expect(page.locator('#cart-items tr:first-child td').nth(3)).toHaveText(`$${totalPriceItem1}.00`);
         //validate product 2 total price
